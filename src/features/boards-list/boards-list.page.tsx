@@ -11,7 +11,7 @@ function BoardListPage() {
     <div>
       <h1>Boards List Page</h1>
       {boardsData.data?.list.map((board) => (
-        <Link to={href(ROUTES.BOARD, {boardId: board.id})}>{board.name}</Link>
+        <Link key={board.id} to={href(ROUTES.BOARD, {boardId: board.id})}>{board.name}</Link>
       ))}
     </div>
   )
