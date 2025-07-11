@@ -1,34 +1,25 @@
-import { rqClient } from "@/shared/api/instance";
+import { AuthLayout } from "./auth-layout";
+import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/model/routes";
-import { Button } from "@/shared/ui/kit/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shared/ui/kit/card";
-import { Link } from "react-router";
+import { LoginForm } from "./login-form";
 
 function LoginPage(){
 
     // const loginMutation = rqClient.useMutation("post", "/auth/login")
 
 
+    return (
+        <AuthLayout
+            title="Enter in the system"
+            description="Enter email and password for enter"
+            footerText={
+                <>Have not accaunt? <Link to={ROUTES.REGISTER}>Registration</Link></>
+            }
+            form={<LoginForm/>}
+        >
 
-
-    return <main className="grow flex flex-col pt-[200px] items-center">
-        <Card className="w-full max-w-[400px]">
-            <CardHeader>
-                <CardTitle>Enter in the system</CardTitle>
-                <CardDescription>
-                    Enter the mail and the password
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                {/* FORM */}
-            </CardContent>
-            <CardFooter>
-                <p>
-                    You have not Acc? <Button asChild variant="link"><Link to={ROUTES.REGISTER}>Registration</Link></Button>
-                </p>
-            </CardFooter>
-        </Card>
-    </main>
+        </AuthLayout>
+    )
 }
 
 export const Component = LoginPage;
