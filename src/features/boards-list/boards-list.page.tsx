@@ -1,5 +1,7 @@
 import { rqClient } from "@/shared/api/instance";
 import { ROUTES } from "@/shared/model/routes";
+import { Button } from "@/shared/ui/kit/button";
+import { Card, CardFooter, CardHeader } from "@/shared/ui/kit/card";
 import { useQueryClient } from "@tanstack/react-query";
 import {Link, href} from "react-router-dom"
 
@@ -20,7 +22,7 @@ function BoardListPage() {
   });
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       <h1>Boards List Page</h1>
 
       <form onSubmit={(e)=> {
@@ -40,17 +42,26 @@ function BoardListPage() {
         </button>
       </form>
 
-      {boardsData.data?.list.map(({id, name}) => (
-        <div key={id}>
-          <Link to={href(ROUTES.BOARD, {boardId: id})}>{name}</Link>
-          <button 
-            onClick={()=> deleteBoardMutation.mutate({params: {path: {boardId: id}}})}
-            disabled={deleteBoardMutation.isPending}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+      <div className="grid grid-cols-3 gap-4">
+        {boardsData.data?.list.map(({id, name}) => (
+          <Card key={id}>
+            <CardHeader>
+              <Button asChild variant="link">
+                <Link to={href(ROUTES.BOARD, {boardId: id})}>{name}</Link>
+              </Button>
+            </CardHeader>
+            <CardFooter>
+              <Button
+                variant="destructive"
+                onClick={()=> deleteBoardMutation.mutate({params: {path: {boardId: id}}})}
+                disabled={deleteBoardMutation.isPending}
+              >
+                Delete
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
